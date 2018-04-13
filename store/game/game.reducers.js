@@ -1,5 +1,6 @@
 import {
-  START_GAME
+  START_GAME,
+  CHANGE_TURN
 } from './game.actionTypes';
 
 const initalState = {
@@ -11,6 +12,13 @@ const initalState = {
 const reducers = (state = { ...initalState }, action) => {
   switch(action.type) {
     case START_GAME: return initalState;
+    case CHANGE_TURN: {
+      console.log('action')
+      return {
+      ...state,
+      playerTurn: action.payload,
+      turn: state.turn + 1
+    }}
     default: return state
   }
 };
