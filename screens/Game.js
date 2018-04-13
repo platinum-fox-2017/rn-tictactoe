@@ -4,6 +4,8 @@ import TitleBar from '../components/TitleBar'
 
 class Game extends Component {
   guessTile (e) {
+    // console.log(e.target)
+    // console.log(document.getElementById('1'))
     console.log(e)
   }
 
@@ -13,13 +15,13 @@ class Game extends Component {
         <TitleBar text={'Tic Tac Toe '} />
         <View style={ styles.board }>
           <View style={styles.tile}>
-            <Button style={styles.tileText} title='X' color='white' onPress={() => this.guessTile('X')}/>
+            <Button style={styles.tileText} title='' color='white' onPress={() => this.guessTile(this)}/>
           </View>
           <View style={styles.tile}>
-            <Button style={styles.tileText} title='O' color='white' onPress={() => this.guessTile('O')}/>
+            <Button style={styles.tileText} title='' color='white' onPress={() => this.guessTile()}/>
           </View>
           <View style={styles.tile}>
-            <Button style={styles.tileText} title='X' color='white' onPress={() => this.guessTile('X')}/>
+            <Button style={styles.tileText} title='' color='white' onPress={() => this.guessTile()}/>
           </View>
           <View style={styles.tile}>
             <Button style={styles.tileText} title='X' color='white' onPress={() => this.guessTile('X')}/>
@@ -40,7 +42,6 @@ class Game extends Component {
             <Button style={styles.tileText} title='X' color='white' onPress={() => this.guessTile('X')}/>
           </View>
         </View>
-        <Text> Masuk game board </Text>
       </View>
     )
   }
