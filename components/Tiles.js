@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableHighlight } from 'react-native';
-import WhiteText from './WhiteText';
+import Token from './Token';
 
 export default class TouchAble extends React.Component {
   render() {
@@ -10,7 +10,7 @@ export default class TouchAble extends React.Component {
          style={ styles.touchAble }
          onPress={ props.onPress }
       >
-        <WhiteText content={ props.content }/>
+        <Token content={ props.content }/>
       </TouchableHighlight>
     );
   }

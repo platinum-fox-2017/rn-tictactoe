@@ -2,21 +2,23 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import TouchAble from '../components/TouchAble';
 import WhiteText from '../components/WhiteText';
-import { startNewGame } from '../store/game/game.actions';
-import BoardGame from '../components/BoardGame'
+import { startNewGame } from '../store/game/game.actions'
 
 export default class Dashboard extends React.Component {
   static navigationOptions = { title: 'Dashboard' };
 
   playGame = () => {
-    // startNewGame()
-    this.props.navigation.navigate('Tic-Tac-Toe');
+    startNewGame()
+    this.props.navigation.navigate('Game');
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <BoardGame />
+        <TouchAble
+          onPress={ this.playGame }
+          content={ <WhiteText content={'Play Game'}/> }
+        />
       </View>
     );
   }
