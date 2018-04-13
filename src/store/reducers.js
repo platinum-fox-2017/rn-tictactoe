@@ -1,5 +1,5 @@
 const initialState = {
-  input: ''
+  input: ['','','','','','','','','','']
 }
 
 const inputReducer = (state = initialState, action) => {

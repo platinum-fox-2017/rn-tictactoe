@@ -2,44 +2,50 @@ import React, { Component } from 'react';
 import {  View, Text, TextInput, StyleSheet, Button } from 'react-native';
 
 export default class Home extends Component {
-  constructor () {
-    super()
-    this.state = {
-      player1: '',
-      player2: ''
-    } 
-  }
-
   static navigationOptions = {
     title: "Tic Tac Toe"
   }
+  
+  state = {
+    player1: '',
+    player2: ''
+  } 
+  
 
-  playGame = () => {
-    this.props.navigation.navigate('GameScreen',{
-      difficulty: this.state.difficulty,
-      category: this.state.category
-    })
-  }
 
   render() {
-
+    console.log(this.state.player1)
+    console.log(this.state.player2)
     return (
       <View>
         <Text style={ styles.title } > Welcome to Tic Tac Toe </Text>
-        <Text style={ styles.label } > Player 1 : </Text>
+        <Text style={ styles.label }> Player 1 </Text>
         <TextInput
-          onChange={ (text) => this.setState({ player1: text }) }
           style={ styles.playerForm }
+          onChangeText={
+            (text) => this.setState({
+              player1: text
+            })
+          }
+          value={ this.state.player1 }
           />
-        <Text style={ styles.label } > Player 2 : </Text>
+        <Text style={ styles.label } > Player 2 </Text>
         <TextInput
-          onChange={ (text) => this.setState({ player2: text }) }
           style={ styles.playerForm }
+          onChangeText={
+            (text) => this.setState({
+              player2: text
+            })
+          }
+          value={ this.state.player2 }
         />
         <Button
           title="Play"
           style={{ margin: 20 }}
-          onPress={ () => this.props.navigation.navigate('GameBoard') }
+          onPress={ () => this.props.navigation.navigate('GameBoard',{
+            player1: this.state.player1,
+            player2: this.state.player2
+          }) }
         />
       </View>
     );
