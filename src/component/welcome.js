@@ -11,7 +11,8 @@ export default class Welcome extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Write your name</Text>
+        <Text style= {styles.welcome}>Welcome To TicTacTo</Text>      
+        <Text style= {styles.name}>Write your name</Text>
         <TextInput
         style={{height: 40, width:200, borderColor: 'gray'}}
         onChangeText={(player) => this.setState({player})}
@@ -36,6 +37,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
+    // justifyContent: 'center',
   },
+  welcome: {
+    marginTop: 25,
+    fontSize: 24,
+  }, 
+  name: {
+    marginTop: 150
+  }
 });
