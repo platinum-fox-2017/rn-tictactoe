@@ -19,7 +19,7 @@ export const RootStack = StackNavigator({
     screen: GameOver,
   },
   },{
-    initialRouteName: 'Board',
+    initialRouteName: 'Welcome',
 });
 
 class Navigator extends React.Component {
