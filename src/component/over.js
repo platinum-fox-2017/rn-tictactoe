@@ -5,7 +5,7 @@ export default class Over extends Component {
   render() {
     return (
       <View>
-        <Text>Over</Text>
+        <Text>Game Over</Text>
       </View>
     )
   }

@@ -18,14 +18,13 @@ export default class Welcome extends Component {
         value={this.state.player}
       />
       <Button
-        title="main"
+        title="play"
         onPress={() => {
           this.props.navigation.navigate('Main', {
             player: this.state.player
           });
         }}
         >
-        <Text style={{color:'#888'}}>... more</Text>
       </Button>
       </View>
     )
