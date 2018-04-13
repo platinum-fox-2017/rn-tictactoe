@@ -3,6 +3,7 @@ import { Text, View, StyleSheet, TouchableHighlight, Button, TextInput } from 'r
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { setPlayerName } from '../store/actions'
+import Button2 from '../components/Button'
 
 class Login extends Component {
   static navigationOptions = {
@@ -40,11 +41,7 @@ class Login extends Component {
           placeholder={'Player Two Name'}
           />
         </View>
-        <View style={styles.button}>
-        <Button onPress={this._goToGame} 
-          title="New Game"
-          color="white"/>
-          </View>
+        <Button2 name={'Start Game'} goTo={this._goToGame} />
       </View>
     )
   }

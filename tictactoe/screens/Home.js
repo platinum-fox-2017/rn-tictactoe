@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Text, View, StyleSheet, TouchableHighlight, Button, TextInput } from 'react-native'
+import Button2 from '../components/Button'
 
 export default class Home extends Component {
   static navigationOptions = { title: 'Home'};
@@ -20,11 +21,7 @@ export default class Home extends Component {
       <View style={styles.container}>
         <Text style={styles.title}> Tic Tac Toe </Text>
         <Text style={styles.title2}> Welcome! </Text>
-        <View style={styles.button}>
-        <Button onPress={this._goToGame} 
-          title="New Game"
-          color="white"/>
-          </View>
+        <Button2 name={'New Game'} goTo={this._goToGame} />
       </View>
     )
   }
@@ -43,7 +40,8 @@ const styles = new StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
     fontSize: 20,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    marginBottom: 150,
   },
   button: {
     marginHorizontal: '20%',

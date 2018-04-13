@@ -3,6 +3,7 @@ import { Text, View, StyleSheet, TouchableHighlight, Button, TextInput } from 'r
 import { connect } from 'react-redux'
 import { setWinner } from '../store/actions'
 import { bindActionCreators } from 'redux'
+import Button2 from '../components/Button'
 
 class End extends Component {
   constructor() {
@@ -33,16 +34,8 @@ class End extends Component {
         :
         <Text style={styles.info}>{this.props.winner} Win!</Text>
         }
-        <View style={styles.button}>
-        <Button onPress={this._goToGame} 
-          title="Play Again"
-          color="white"/>
-          </View>
-        <View style={styles.button}>
-        <Button onPress={this._goToHome} 
-          title="Home"
-          color="white"/>
-          </View>
+        <Button2 name={'Play Again'} goTo={this._goToGame}/>
+        <Button2 name={'Home'} goTo={this._goToHome} />
       </View>
     )
   }

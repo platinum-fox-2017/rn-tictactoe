@@ -4,6 +4,9 @@ import {
   SET_WINNER
 } from './actionTypes'
 
+import { combineReducers } from 'redux'
+import userReducers from './users/reducers/users.reducers.users'
+
 const initialState = {
   winner: null,
   player1_name: 'Anonymous_1',

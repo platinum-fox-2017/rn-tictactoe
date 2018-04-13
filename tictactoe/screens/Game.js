@@ -124,7 +124,6 @@ class Game extends Component {
       <View style={styles.container}>
         <Text style={styles.title}>Tic Tac Toe</Text>
         <Text style={styles.info}>Turn: {this.state.turn[this.state.counter%2].name}</Text>
-        {/* <Text style={styles.info}>Winner: {this.state.winner}</Text> */}
         <View style={styles.board}>
           {
             this.state.board.map((val, index) => (
