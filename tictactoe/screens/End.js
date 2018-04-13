@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
 import { Text, View, StyleSheet, TouchableHighlight, Button, TextInput } from 'react-native'
+import { connect } from 'react-redux'
+import { setWinner } from '../store/actions'
+import { bindActionCreators } from 'redux'
 
-export default class Home extends Component {
+class End extends Component {
   constructor() {
    super()
    this.state = {
@@ -11,17 +14,33 @@ export default class Home extends Component {
 
   _goToGame = () => {
     console.log('tes')
+    this.props.setWinner(null)
     this.props.navigation.navigate('Game')
+  }
+
+  _goToHome = () => {
+    console.log('tes')
+    this.props.setWinner(null)
+    this.props.navigation.navigate('HomePage')
   }
 
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.title}> Tic Tac Toe </Text>
-        <Text style={styles.info}>LSLSLSLS Win!</Text>
+        {this.props.winner == null ? 
+        <Text style={styles.info}>Draw Game</Text>
+        :
+        <Text style={styles.info}>{this.props.winner} Win!</Text>
+        }
         <View style={styles.button}>
         <Button onPress={this._goToGame} 
           title="Play Again"
+          color="white"/>
+          </View>
+        <View style={styles.button}>
+        <Button onPress={this._goToHome} 
+          title="Home"
           color="white"/>
           </View>
       </View>
@@ -67,3 +86,13 @@ const styles = new StyleSheet.create({
     padding: 10
   }
 })
+
+const mapStateToProps = state => ({
+  winner: state.winner
+})
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+  setWinner
+}, dispatch)
+
+export default connect(mapStateToProps, mapDispatchToProps) (End)

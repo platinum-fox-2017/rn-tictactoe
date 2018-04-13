@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Text, View, StyleSheet, TouchableHighlight, Button, TextInput } from 'react-native'
 
 export default class Home extends Component {
+  static navigationOptions = { title: 'Home'};
   constructor() {
    super()
    this.state = {

@@ -20,19 +20,26 @@ export default class App extends React.Component {
   }
 }
 
-const RootStack = SwitchNavigator ({
+const HomePage = StackNavigator ({
   Home: {
     screen: Home
+  }, 
+  Login: {
+    screen: Login
+  },
+  
+})
+
+const RootStack = SwitchNavigator ({
+  HomePage: {
+    screen: HomePage
   }, 
   Game: {
     screen: Game
   },
   End: {
     screen: End
-  },
-  Login: {
-    screen: Login
   }
 }, {
-  initialRouteName: 'Home'
+  initialRouteName: 'HomePage'
 })
