@@ -3,16 +3,21 @@ import { StyleSheet, Text, View } from 'react-native';
 import { StackNavigator } from 'react-navigation'
 
 import WelcomeScreen from './screens/WelcomeScreen'
+import Board from './screens/Board'
 
 const RootStack = StackNavigator(
   {
     Welcome: {
       screen: WelcomeScreen
     },
+    Board: {
+      screen: Board
+    }
   },
   {
-    initialRouteName: 'Tic tac toe',
+    initialRouteName: 'Welcome',
   })
+
 export default class App extends React.Component {
   render() {
     return (
@@ -20,12 +25,3 @@ export default class App extends React.Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
