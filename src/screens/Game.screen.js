@@ -5,7 +5,10 @@ import { bindActionCreators } from 'redux'
 
 const MapStateToProps = (state) => {
   return {
-    username: state.game.username
+    playerOne: state.game.playerOne,
+    playerTwo: state.game.playerTwo,
+    board: state.game.board,
+    status: state.game.status,
   }
 }
 
@@ -16,13 +19,8 @@ class Game extends Component {
     super(props)
     this.state = {
       board : ['-1','-1','-1','-1','-1','-1','-1','-1','-1'],
-      player: '',
       status: false,
     }
-  }
-
-  componentDidMount = () => {
-    this.setState({ player: this.props.navigation.state.params.username })
   }
 
   onPress = (index) => {
@@ -41,17 +39,21 @@ class Game extends Component {
           this.checkWinner(2,5,8) ||
           this.checkWinner(0,4,8) ||
           this.checkWinner(2,4,6)
-        )
-        this.props.navigation.navigate('End', { winner: this.state.player })
+        ) {}
       })
     }
   }
 
   checkWinner = (p1, p2, p3) => {
-    console.log(board[p1] == board[p2] && board[p2] == board[p3] && board[p1] == board[p3], 'checkwinner')
     let board = this.state.board;
     if (board[p1] == '-1' || board[p2] == '-1' || board[p2] == '-1') return false;
-    else if (board[p1] == board[p2] && board[p2] == board[p3] && board[p1] == board[p3]) return true;
+    else {
+      if (board[p1] == board[p2] && board[p2] == board[p3] && board[p1] == board[p3]) {
+        if (board[p1] == '0') this.props.navigation.navigate('End', { winner: this.props.playerOne })
+        if (board[p1] == '1') this.props.navigation.navigate('End', { winner: this.props.playerTwo })
+        return true;
+      }
+    }
     
     return false
   }
@@ -72,7 +74,8 @@ class Game extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.status}>
-          <Text> {this.state.player} </Text>
+          <Text> Player One: {this.props.playerOne} : X </Text>
+          <Text> Player Two: {this.props.playerTwo} : O </Text>
           <View style={styles.keyboard}>
             { board }
           </View>

@@ -12,19 +12,25 @@ class Login extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      username: ''
+      playerOne: '',
+      playerTwo: ''
     }
 
-    this.onChangeText = this.onChangeText.bind(this)
+    this.onChangeTextPlayerOne = this.onChangeTextPlayerOne.bind(this)
+    this.onChangeTextPlayerTwo = this.onChangeTextPlayerTwo.bind(this)
   }
 
   onPress = () => {
-    // this.props.setUsername(this.state.username)    
-    this.props.navigation.navigate('Game', { username: this.state.username })
+    this.props.setUsername(this.state)
+    this.props.navigation.navigate('Game')
   }
 
-  onChangeText = (value) => {
-    this.setState({ username: value })
+  onChangeTextPlayerOne = (value) => {
+    this.setState({ playerOne: value })
+  }
+
+  onChangeTextPlayerTwo = (value) => {
+    this.setState({ playerTwo: value })
   }
 
   render() {
@@ -32,10 +38,17 @@ class Login extends Component {
       <View style={styles.container}>
         <TextInput
             style={styles.username}
-            name='username'
-            placeholder='insert your name'
-            onChangeText={this.onChangeText}
-            value={this.state.username}
+            name='playerOne'
+            placeholder='insert player one'
+            onChangeText={this.onChangeTextPlayerOne}
+            value={this.state.playerOne}
+          />
+        <TextInput
+            style={styles.username}
+            name='playerTwo'
+            placeholder='insert player two'
+            onChangeText={this.onChangeTextPlayerTwo}
+            value={this.state.playerTwo}
           />
         <View style={styles.button}>
           <Button title='New Game' onPress={this.onPress} disabled={ this.state.username === '' }/>

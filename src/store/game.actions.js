@@ -7,11 +7,9 @@ export const setUsername = (value) => {
   }
 }
 
-// export const LoadJokeCategories = () => {
-//   return dispatch => {
-//     dispatch(loading())
-//     axios.get('https://api.chucknorris.io/jokes/categories')
-//          .then(({data}) => dispatch(loadJokeCategoriesSuccess(data)))
-//          .catch(err => dispatch(error()))
-//   }
-// }
+export const updateBoard = (value) => {
+  return {
+    type: actionTypes.UPDATE_BOARD,
+    value
+  }
+}
