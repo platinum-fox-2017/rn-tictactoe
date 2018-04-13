@@ -1,24 +1,37 @@
+console.disableYellowBox=true
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { StackNavigator } from 'react-navigation';
+import Game from './app/components/Game'
+import { Provider } from 'react-redux';
+import store from 'store'
+
+const RootNav = StackNavigator(
+  {
+    Game: {
+      screen: Game
+    }
+  },
+  {
+    initialRouteName: 'Home'
+  }
+)
 
 export default class App extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
-      <Text>God Bless</Text>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
-      </View>
+      <Provider store={store}>
+        <RootNav />
+      </Provider>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     backgroundColor: '#fff',
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//   },
+// });
