@@ -1,54 +1,44 @@
 import React, { Component } from 'react';
 import {  View, Text, StyleSheet, TextInput, TouchableHighlight } from 'react-native';
+import { connect } from 'react-redux';
 
 class Game extends Component {
   constructor() {
     super();
-    this.state = {  }
+    this.state = {
+      userInput: [],
+      result : false
+      }
   }
 
   static navigationOptions = {
     title: 'Tic Tac Toe Game On !'
   }
 
-  render() { 
-    return ( 
-      <View style={styles.container}>
-        <View style={styles.board}>
-          <View 
-            style={[styles.line,{
-              transform:[
-                {translateX:200}
-              ]
-            }]}
-          />
-          <View 
-            style={[styles.line,{
-              height: 3,
-              width: 306,
-              transform: [
-                {translateY: 200}
-              ]
-            }]}
-          />
-          <View 
-            style={[styles.line,{
-              height: 3,
-              width: 306,
-              transform: [
-                {translateY: 100}
-              ]
-            }]}
-          />
+  lose(){
+    this.props.navigation.navigate('End',{result:false})
+  }
+
+  render() {
+    if(this.state.result === false){
+      return ( 
+        <View style={styles.container}>
+          <View style={styles.board}>
+            <View style={styles.line}/>
+            <View style={[styles.line,{transform:[{translateX:200}]}]}/>
+            <View style={[styles.line,{height: 3,width: 306,transform: [{translateY: 200}]}]}/>
+            <View style={[styles.line,{height: 3,width: 306,transform: [{translateY: 100}]}]}/>
+          </View>
         </View>
-      </View>
-     )
+       )
+    }else{
+      this.lose()
+    } 
   }
 }
  
 const styles = StyleSheet.create({
   container:{
-    alignItems: 'center',
     justifyContent: 'center',
     marginTop: 20
   },
@@ -67,4 +57,20 @@ const styles = StyleSheet.create({
     ]
   }
 })
-export default Game ;
+
+
+const mapStateToProps = state => {
+  return {
+    input: state.inputUser
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators({
+    getPlayer,
+  }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Game);
+
+export default (Game) ;

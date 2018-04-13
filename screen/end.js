@@ -6,11 +6,22 @@ class End extends Component {
     super();
     this.state = {  }
   }
-  render() { 
-    return ( 
-      <View>
-      </View>
-     )
+  render() {
+    if(this.props.result === false){
+      return ( 
+        <View>
+          <Text>
+              you lost    
+          </Text>
+        </View>
+       )
+    }else{
+      return(
+        <View>
+          <Text>you win </Text>
+        </View>
+      )
+    } 
   }
 }
  
