@@ -8,15 +8,17 @@ import {
 export default function reducer (state={
   isLoading: false,
   err: '',
+  result: 'pending',
   isChange: false,
   turn: 'player',
+  turnCount: 0,
   board: [
     [1,2,3],
     [4,5,6],
     [7,8,9]
   ],
   boardState: [
-    [{val:'1'},{val:''},{val:''}],
+    [{val:''},{val:''},{val:''}],
     [{val:''},{val:''},{val:''}],
     [{val:''},{val:''},{val:''}]
   ],
@@ -46,7 +48,8 @@ export default function reducer (state={
     case TURN_CHANGE: {
       return {
         ...state,
-        turn: action.payload
+        turn: action.payload.turn,
+        turnCount: action.payload.turnCount
       }
     }
     case GET_CARD_OK: {

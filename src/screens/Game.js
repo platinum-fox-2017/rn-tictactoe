@@ -20,6 +20,7 @@ class Game extends React.Component {
     return (
       <View style={styles.Container}>
         <Text>TicTacToe</Text>
+        <Text>{this.props.turn} {this.props.turnCount}</Text>
         <Text>{this.props.playerName}</Text>
         <Board />
       </View>
@@ -31,6 +32,8 @@ const stateToProps = (state) => {
   return {
     playerName: state.playerName,
     test: state.test,
+    turn: state.turn,
+    turnCount: state.turnCount,
     board: state.board
   }
 }

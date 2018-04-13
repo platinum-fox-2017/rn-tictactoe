@@ -5,6 +5,7 @@ import { StackNavigator, TabNavigator, TabBarBottom } from 'react-navigation';
 // comp
 import Welcome from './src/screens/Welcome'
 import Game from './src/screens/Game'
+import Result from './src/screens/Result'
 
 // redux
 import { Provider } from 'react-redux'
@@ -17,6 +18,9 @@ const WelcomeStack = StackNavigator(
     },
     Game: {
       screen: Game
+    },
+    Result: {
+      screen: Result
     }
   },
   {

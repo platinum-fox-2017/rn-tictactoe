@@ -65,10 +65,20 @@ export function boardPress (row, col, val) {
 export function turnChange () {
   return (dispatch, getState) => {
     let turn = getState().turn
+    let turnCount = getState().turnCount + 1
+
     if (turn === 'player') {
-      dispatch(actTurn('opponent'))
+      let data = {
+        turn: 'opponent',
+        turnCount
+      }
+      dispatch(actTurn(data))
     } else {
-      dispatch(actTurn('player'))
+      let data = {
+        turn: 'player',
+        turnCount
+      }
+      dispatch(actTurn(data))
     }
 
   }
