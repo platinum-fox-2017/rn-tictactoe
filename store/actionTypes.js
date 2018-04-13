@@ -1,0 +1,2 @@
+export const PRINT_BOARD = 'PRINT_BOARD'
+export const SELECT_BOARD = 'SELECT_BOARD'
