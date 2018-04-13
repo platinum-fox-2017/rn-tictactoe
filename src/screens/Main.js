@@ -1,5 +1,6 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TouchableHighlight } from 'react-native';
+import IconO from '../Components/IconO'
 
 class Main extends React.Component {
 
@@ -7,16 +8,57 @@ class Main extends React.Component {
     title: 'Tic Tac Toe',
   }
 
+  getLocation = (e) => {
+
+  }
+
   render () {
     return (
-      <View>
-        <View></View>
+      <View style={ styles.container }>
+        <View style={[styles.boxTitle, styles.title ]}>
+          <Text style={{fontSize: 30}}>Board</Text>
+        </View>
+        <View style={[styles.boxTitle , styles.board]}>
+          <View style={ styles.containerBoard }>
+            {/*<TouchableHighlight onPress={ () => this.getLocation()}>
+            </TouchableHighlight>*/}
+
+              <View style={ styles.border }>
+                <View style={ styles.line }>
+                </View>
+                <View style={[ styles.line ,{
+                  transform: [
+                    { translateX: 200 }
+                  ]
+                }]}>
+                </View>
+                <View style={[ styles.line ,{
+                  height: 3,
+                  width: 306,
+                  transform: [
+                    {translateY: 200}
+                  ]
+                }]}>
+                </View>
+                <View style={[ styles.line ,{
+                  height: 3,
+                  width: 306,
+                  transform: [
+                    {translateY: 100}
+                  ]
+                }]}>
+                <Text>O</Text>
+                </View>
+              </View>
+
+          </View>
+        </View>
       </View>
     )
   }
 }
 
-onst styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
@@ -32,18 +74,30 @@ onst styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#FFEEE4'
   },
-  character: {
-    flex: 1.5,
+  board: {
+    flex: 5,
     backgroundColor: '#F17F42'
   },
-  keyboard: {
-    flex: 2,
-    backgroundColor: '#FFF',
-    alignItems: 'center',
+  containerBoard: {
+    justifyContent: 'center',
+    marginTop: 20,
+    backgroundColor: '#fff'
   },
-  button: {
-    flex: 1,
-    flexDirection: 'row'
+  border: {
+    borderWidth: 3,
+    height: 312,
+    width: 312
+  },
+  line: {
+    backgroundColor: '#000',
+    height: 306,
+    width: 3,
+    position: 'absolute',
+    transform: [
+      { translateX: 100 }
+    ]
+
+
   }
 });
 
