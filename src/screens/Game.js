@@ -8,6 +8,8 @@ import { bindActionCreators } from 'redux'
 import { submitName } from '../redux/action.js'
 import { connect } from 'react-redux'
 
+// comp
+import Board from '../components/Board'
 
 class Game extends React.Component {
   static navigationOptions = {
@@ -18,6 +20,8 @@ class Game extends React.Component {
     return (
       <View style={styles.Container}>
         <Text>TicTacToe</Text>
+        <Text>{this.props.playerName}</Text>
+        <Board />
       </View>
     )
   }

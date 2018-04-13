@@ -1,7 +1,7 @@
 import {
   GET_CARD_OK, GET_CARD_LOAD, GET_CARD_ERR,
   GET_XKCD_OK, GET_XKCD_LOAD, GET_XKCD_ERR,
-  NAME_SUBMIT
+  NAME_SUBMIT, BOARD_PRESS
 } from './actionTypes.js'
 import axios from 'axios'
 
@@ -10,6 +10,10 @@ import axios from 'axios'
 export function actName (name) {
   return {type: NAME_SUBMIT, payload: name}
 }
+export function actBoardPress (payload) {
+  return {type: BOARD_PRESS, payload: payload}
+}
+
 export function actCards (card) {
   return {type: GET_CARD_OK, payload: card}
 }

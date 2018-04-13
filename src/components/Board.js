@@ -11,10 +11,36 @@ import { connect } from 'react-redux'
 class Board extends React.Component {
   render () {
     return (
-      <View style={styles.Board}>
-        <TouchableOpacity>
+      <View style={styles.board}>
+        <View style={styles.smallContainer}>
+          {
+            this.props.board[0].map((pos, i) => (
+                <TouchableOpacity style={styles.box}>
+                  <Text>{this.props.boardState[0][i].val}</Text>
+                </TouchableOpacity>
+            ))
+          }
+        </View>
+        <View style={styles.smallContainer}>
+          {
+            this.props.board[1].map((pos, i) => (
+                <TouchableOpacity style={styles.box}>
+                  <Text>{this.props.boardState[1][i].val}</Text>
+                </TouchableOpacity>
+            ))
+          }
+        </View>
+        <View style={styles.smallContainer}>
+          {
+            this.props.board[2].map((pos, i) => (
+                <TouchableOpacity style={styles.box}>
+                  <Text>{this.props.boardState[2][i].val}</Text>
+                </TouchableOpacity>
+            ))
+          }
+        </View>
 
-        </TouchableOpacity>
+
       </View>
     )
   }
@@ -24,7 +50,8 @@ const stateToProps = (state) => {
   return {
     playerName: state.playerName,
     test: state.test,
-    board: state.board
+    board: state.board,
+    boardState: state.boardState
   }
 }
 
@@ -34,6 +61,7 @@ const dispatchToProps = (dispatch) => bindActionCreators({
 
 export default connect(stateToProps, dispatchToProps)(Board);
 
+let { height, width } = Dimensions.get('window')
 const styles = StyleSheet.create({
   board: {
     width: 400,
@@ -41,10 +69,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  input: {
-    height: 50,
-    width: width-20,
-    borderColor: 'black',
-    borderWidth: 1
+  smallContainer: {
+
+    flexDirection: 'row',
+  },
+  box: {
+    height: 70,
+    width: 70,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'grey',
+    borderWidth: 1,
+
   }
 })

@@ -1,7 +1,7 @@
 import {
   GET_CARD_OK, GET_CARD_LOAD, GET_CARD_ERR,
   GET_XKCD_OK, GET_XKCD_LOAD, GET_XKCD_ERR,
-  NAME_SUBMIT
+  NAME_SUBMIT, BOARD_PRESS
 } from './actionTypes.js'
 // REDUCERS
 export default function reducer (state={
@@ -12,7 +12,11 @@ export default function reducer (state={
     [4,5,6],
     [7,8,9]
   ],
-  comic: {},
+  boardState: [
+    [{val:''},{val:''},{val:''}],
+    [{val:''},{val:''},{val:''}],
+    [{val:''},{val:''},{val:''}]
+  ],
   test: 'Connected to Redux! :v',
   playerName: ''
 }, action) {
@@ -21,6 +25,12 @@ export default function reducer (state={
       return {
         ...state,
         playerName: action.payload
+      }
+    }
+    case BOARD_PRESS: {
+      return {
+        ...state,
+        boardState: action.payload
       }
     }
     case GET_CARD_OK: {
