@@ -16,9 +16,14 @@ class GameOver extends Component {
   }
 
   render() {
+   const { params } = this.props.navigation.state;
+    const winner = params ? params.winner : null;
     return (
       <View>
-        <Text>{ this.state.text } </Text>
+        <Text> {winner} </Text>
+        { winner == 1 &&  <Text> You Win </Text> }
+        { winner == 2 &&  <Text> Computer Win </Text> }
+        { winner == 0 &&  <Text> Seri </Text> }
         <Button onPress={ () => this.props.navigation.navigate('Board') } title="Play Again" />
       </View>
     );

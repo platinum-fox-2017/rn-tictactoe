@@ -3,23 +3,141 @@ import {
   View,
   Text,
   Button,
-  TouchableHighlight
+  TouchableHighlight,
+  Alert
 } from 'react-native'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { touchBoard , winner} from '../store/action'
 
 class Board extends Component {
-  
-
   constructor(props) {
     super(props);
     this.state = {
       text: 'board',
-      boardData: [[0,0,0],[0,0,0],[0,0,0]],
-      nullBoard: [],
-      activePlayer: 0
+      winner: null
     }
   }
+  checkSebaris = (baris,player) => {
+    const { boardData } = this.props.redux
+    if (boardData[baris][0] == player) {
+      if (boardData[baris][1] == player) {
+        if (boardData[baris][2] == player) {
+          return true 
+        } 
+      }
+    }
+    return false
+  }
+
+  
+  checkSerongKanan = (player) => {
+    const { boardData } = this.props.redux
+    if (boardData[0][0] == player) {
+      if (boardData[1][1] == player) {
+        if (boardData[2][2] == player) {
+          return true 
+        } 
+      }
+    }
+    return false
+  }
+
+  checkSerongKiri = (player) => {
+    const { boardData } = this.props.redux
+    if (boardData[0][2] == player) {
+      if (boardData[1][1] == player) {
+        if (boardData[2][0] == player) {
+          return true 
+        } 
+      }
+    }
+    return false
+  }
+
+  checkKebawah = (kolom,player) => {
+    const { boardData } = this.props.redux
+    if (boardData[0][kolom] == player) {
+      if (boardData[1][kolom] == player) {
+        if (boardData[2][kolom] == player) {
+          return true 
+        } 
+      }
+    }
+    return false
+  }
+  isGameOver = () => {
+    const boardData = this.props.redux.boardData
+    let isOver = 0
+    for (var i = 0; i <  boardData.length; i++) {
+      for (var j = 0; j < boardData[i].length; j++)  {
+        if (boardData[i][j] == 0) {
+           isOver++
+        }
+      }
+    }
+    if (isOver == 0) {
+      if(!this.theWinner()) {
+        this.setState({winner: 0})
+        this.props.winner(0)
+      } else {
+        this.props.winner(this.state.winner)
+      }
+    }
+
+  }
+  theWinner = () => {
+    
+    for(var i = 0; i < 2; i++) {
+      if (this.checkKebawah(i,1)) {
+        this.setState({winner: 1})
+        return true
+      }
+    }
+
+    for(var i = 0; i < 2; i++) {
+      if (this.checkKebawah(i,2)) {
+        this.setState({winner: 2})
+        return true
+      }
+    }
+
+    for(var i = 0; i < 2; i++) {
+      if (this.checkSebaris(i,1)) {
+        this.setState({winner: 1})
+        return true
+      }
+    }
+
+    for(var i = 0; i < 2; i++) {
+      if (this.checkSebaris(i,2)) {
+        this.setState({winner: 2})
+        return true
+      }
+    }
+    if (this.checkSerongKanan(1)) {
+        this.setState({winner: 1})
+        return true
+    }
+
+    if (this.checkSerongKanan(2)) {
+        this.setState({winner: 2})
+        return true
+    }
+
+    if (this.checkSerongKiri(1)) {
+        this.setState({winner: 1})
+        return true
+    }
+
+    if (this.checkSerongKiri(2)) {
+        this.setState({winner: 2})
+        return true
+    }
+    return false
+  }
   computerTurn = ()  => {
-    const { boardData } = this.state
+    const boardData = this.props.redux.boardData
     let getBoard = false
     let nullBoard = []
     for (var i = 0; i <  boardData.length; i++) {
@@ -35,29 +153,37 @@ class Board extends Component {
       }
     }
   
-    this.setState({ boardData: boardData, activePlayer: 0 })
+    this.props.touchBoard(boardData, 0)
   }
 
   touchBoard = (x,y) => {
-    if (this.state.boardData[x][y] == 0) {
-      if (this.state.activePlayer == 0) {
-          this.state.boardData[x][y] = 1
-          this.state.activePlayer = 1
+    const boardData = this.props.redux.boardData
+    let activePlayer = this.props.redux.activePlayer
+    if (boardData[x][y] == 0) {
+      if (activePlayer == 0) {
+          boardData[x][y] = 1
+          activePlayer = 1
         } else {
-          this.state.boardData[x][y] = 2
-          this.state.activePlayer = 0
+          boardData[x][y] = 2
+          activePlayer = 0
         }
-        const newBoard = this.state.boardData
-        this.setState({ boardData: newBoard, activePlayer: this.state.activePlayer })
+        const newBoard = boardData
+        this.props.touchBoard(newBoard, 1)
         this.computerTurn()
+        this.isGameOver()
     }      
   }
 
   render() {
+    const boardData = this.props.redux.boardData
+    const activePlayer = this.props.redux.activePlayer
     return (
       <View>
-        <Text>{ this.state.text } </Text>
-        { this.state.activePlayer === 0 ? <Text> Your Turn </Text> : <Text> Computer Turn </Text> }
+        <Text>{ this.props.redux.winner } </Text>
+        { this.state.winner == 1 &&  <Text> You Win </Text> }
+        { this.state.winner == 2 &&  <Text> Computer Win </Text> }
+        { this.state.winner == 0 &&  <Text> Seri </Text> }
+        { activePlayer === 0 ? <Text> Your Turn </Text> : <Text> Computer Turn </Text> }
           <View style={{
           flex: 1,
           flexDirection: 'row',
@@ -66,20 +192,20 @@ class Board extends Component {
           }}>
             <TouchableHighlight onPress={ () => this.touchBoard(0,0) }>
               <View style={{width: 50, height: 50, backgroundColor: 'skyblue',}}>
-                { this.state.boardData[0][0] == 1 && <Text> o </Text> }
-                { this.state.boardData[0][0] == 2 && <Text> x </Text> }
+                { boardData[0][0] == 1 && <Text> o </Text> }
+                { boardData[0][0] == 2 && <Text> x </Text> }
               </View>
             </TouchableHighlight>
             <TouchableHighlight onPress={ () => this.touchBoard(0,1) }>
               <View style={{width: 50, height: 50, backgroundColor: 'powderblue'}} >
-                { this.state.boardData[0][1] == 1 && <Text> o </Text> }
-                { this.state.boardData[0][1] == 2 && <Text> x </Text> }
+                { boardData[0][1] == 1 && <Text> o </Text> }
+                { boardData[0][1] == 2 && <Text> x </Text> }
               </View>
             </TouchableHighlight>
             <TouchableHighlight onPress={ () => this.touchBoard(0,2) }>
               <View style={{width: 50, height: 50, backgroundColor: 'steelblue'}}>
-                { this.state.boardData[0][2] == 1 && <Text> o </Text> }
-                { this.state.boardData[0][2] == 2 && <Text> x </Text> }
+                { boardData[0][2] == 1 && <Text> o </Text> }
+                { boardData[0][2] == 2 && <Text> x </Text> }
               </View>
             </TouchableHighlight>
           </View>
@@ -91,20 +217,20 @@ class Board extends Component {
           }}>
             <TouchableHighlight onPress={ () => this.touchBoard(1,0) }>
               <View style={{width: 50, height: 50, backgroundColor: 'powderblue'}}>
-                { this.state.boardData[1][0] == 1 && <Text> o </Text> }
-                { this.state.boardData[1][0] == 2 && <Text> x </Text> }
+                { boardData[1][0] == 1 && <Text> o </Text> }
+                { boardData[1][0] == 2 && <Text> x </Text> }
               </View>
             </TouchableHighlight>
             <TouchableHighlight onPress={ () => this.touchBoard(1,1) }>
               <View style={{width: 50, height: 50, backgroundColor: 'steelblue'}} >
-                { this.state.boardData[1][1] == 1 && <Text> o </Text> }
-                { this.state.boardData[1][1] == 2 && <Text> x </Text> }
+                { boardData[1][1] == 1 && <Text> o </Text> }
+                { boardData[1][1] == 2 && <Text> x </Text> }
               </View>
             </TouchableHighlight>
             <TouchableHighlight onPress={ () => this.touchBoard(1,2) }>
             <View style={{width: 50, height: 50, backgroundColor: 'skyblue'}} >
-                { this.state.boardData[1][2] == 1 && <Text> o </Text> }
-                { this.state.boardData[1][2] == 2 && <Text> x </Text> }
+                { boardData[1][2] == 1 && <Text> o </Text> }
+                { boardData[1][2] == 2 && <Text> x </Text> }
               </View>
             </TouchableHighlight>
           </View>
@@ -116,20 +242,20 @@ class Board extends Component {
           }}>
             <TouchableHighlight onPress={ () => this.touchBoard(2,0) }>
               <View style={{width: 50, height: 50, backgroundColor: 'steelblue'}}>
-                { this.state.boardData[2][0] == 1 && <Text> o </Text> }
-                { this.state.boardData[2][0] == 2 && <Text> x </Text> }
+                { boardData[2][0] == 1 && <Text> o </Text> }
+                { boardData[2][0] == 2 && <Text> x </Text> }
               </View>
             </TouchableHighlight>
             <TouchableHighlight onPress={ () => this.touchBoard(2,1) }>
               <View style={{width: 50, height: 50, backgroundColor: 'skyblue'}} >
-                { this.state.boardData[2][1] == 1 && <Text> o </Text> }
-                { this.state.boardData[2][1] == 2 && <Text> x </Text> }
+                { boardData[2][1] == 1 && <Text> o </Text> }
+                { boardData[2][1] == 2 && <Text> x </Text> }
               </View>
             </TouchableHighlight>
             <TouchableHighlight onPress={ () => this.touchBoard(2,2) }>
             <View style={{width: 50, height: 50, backgroundColor: 'powderblue'}} >
-                { this.state.boardData[2][2] == 1 && <Text> o </Text> }
-                { this.state.boardData[2][2] == 2 && <Text> x </Text> }
+                { boardData[2][2] == 1 && <Text> o </Text> }
+                { boardData[2][2] == 2 && <Text> x </Text> }
               </View>
             </TouchableHighlight>
           </View>
@@ -139,5 +265,11 @@ class Board extends Component {
     );
   }
 }
+const mapStateToProps = (state) => {
+  return {
+    redux: state
+  }
+}
 
-export default Board;
+const mapDispatchToProps = (dispatch) => bindActionCreators({ touchBoard, winner }, dispatch)
+export default connect(mapStateToProps, mapDispatchToProps)(Board);

@@ -4,6 +4,9 @@ import Welcome from '../pages/Welcome'
 import GameOver from '../pages/GameOver'
 import Board from '../pages/Board'
 import { StackNavigator } from 'react-navigation';
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { touchBoard } from '../store/action'
 
 export const RootStack = StackNavigator({
   Board: {
@@ -35,5 +38,11 @@ const styles = StyleSheet.create({
   },
 });
 
+const mapStateToProps = (state) => {
+  return {
+    redux: state
+  }
+}
 
-export default Navigator
+const mapDispatchToProps = (dispatch) => bindActionCreators({ touchBoard }, dispatch)
+export default connect(mapStateToProps, mapDispatchToProps)(Navigator);
