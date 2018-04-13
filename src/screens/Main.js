@@ -1,6 +1,10 @@
 import React from 'react'
 import { StyleSheet, Text, View, TouchableHighlight } from 'react-native';
 import IconO from '../Components/IconO'
+import { connect } from 'react-redux'
+import { loadList } from '../store/main/main.action'
+import { bindActionCreators } from 'redux'
+
 
 class Main extends React.Component {
 
@@ -9,7 +13,7 @@ class Main extends React.Component {
   }
 
   getLocation = (e) => {
-
+    this.props.loadList()
   }
 
   render () {
@@ -20,8 +24,7 @@ class Main extends React.Component {
         </View>
         <View style={[styles.boxTitle , styles.board]}>
           <View style={ styles.containerBoard }>
-            {/*<TouchableHighlight onPress={ () => this.getLocation()}>
-            </TouchableHighlight>*/}
+            <TouchableHighlight onPress={ () => this.getLocation()}>
 
               <View style={ styles.border }>
                 <View style={ styles.line }>
@@ -47,10 +50,11 @@ class Main extends React.Component {
                     {translateY: 100}
                   ]
                 }]}>
-                <Text>O</Text>
+                <IconO />
                 </View>
               </View>
 
+              </TouchableHighlight>
           </View>
         </View>
       </View>
@@ -96,9 +100,11 @@ const styles = StyleSheet.create({
     transform: [
       { translateX: 100 }
     ]
-
-
   }
 });
 
-export default Main;
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+  loadList
+}, dispatch)
+
+export default connect(mapStateToProps,mapDispatchToProps)(Main);

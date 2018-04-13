@@ -4,11 +4,15 @@ import { StackNavigator } from 'react-navigation';
 import Welcome from './src/screens/Welcome'
 import Main from './src/screens/Main'
 import End from './src/screens/End'
+import { Provider } from 'react-redux'
+import store from './src/store'
 
 export default class App extends React.Component {
   render() {
     return (
-      <RootStack />
+      <Provider store={ store }>
+        <RootStack />
+      </Provider>
     )
   }
 }
