@@ -3,7 +3,8 @@ import { StyleSheet, Text, View } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import HomeScreen from './src/screens/HomeScreen'
 import MainScreen from './src/screens/MainScreen'
-
+import store from './src/store/index'
+import { Provider } from 'react-redux'
 const RootStack = StackNavigator({
   Home: {
     screen: HomeScreen
@@ -19,7 +20,9 @@ const RootStack = StackNavigator({
 export default class App extends React.Component {
   render() {
     return (
-      <RootStack />
+      <Provider store={store}>
+        <RootStack />
+      </Provider>
     );
   }
 }
