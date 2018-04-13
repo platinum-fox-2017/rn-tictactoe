@@ -6,7 +6,7 @@ import ButtonGeneral from '../components/ButtonGeneral'
 
 class Lose extends Component {
   moveToGame = () => {
-    this.props.navigation.navigate('Game')
+    this.props.navigation.goBack()
   }
 
   render() {
