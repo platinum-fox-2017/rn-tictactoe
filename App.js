@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import { Provider } from 'react-redux';
 
-// import store from './src/store';
+import store from './src/store';
 
 import Welcome from './src/components/Welcome';
 import Game from './src/components/Game';
@@ -32,9 +32,9 @@ const RootStack = StackNavigator({
 export default class App extends Component {
   render() {
     return (
-      // <Provider>
+      <Provider store={store}>
         <RootStack />
-      // </Provider>
+      </Provider>
     );
   }
 }

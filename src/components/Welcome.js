@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { connect } from "react-redux";
-import { bindActionCreators } from 'redux';
+// import { connect } from "react-redux";
+// import { bindActionCreators } from 'redux';
 import { StyleSheet, Text, View, Button, Animated, TextInput, Alert } from 'react-native';
 
 export default class Welcome extends Component {

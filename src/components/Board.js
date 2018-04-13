@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableHighlight } from 'react-native';
+import { connect } from "react-redux";
+import { bindActionCreators } from 'redux';
+import { StyleSheet, Text, View, Button, TouchableHighlight } from 'react-native';
+
+// import { calculateWinner } from '../store/tictactoe.actions';
 
 function Square(props){
   return(
@@ -56,7 +60,14 @@ class Board extends Component {
   }
 
   renderSquare(i) {
-    return <Square value={this.state.squares[i]} onPress={() => this.handlePress(i)} />
+    return <Square 
+            value={this.state.squares[i]} 
+            onPress={() => this.handlePress(i)} 
+           />
+  }
+
+  componentDidMount() {
+    console.log('did mount Board ==> ', this.props)
   }
 
   render() {
@@ -117,4 +128,13 @@ const styles = StyleSheet.create({
   }
 });
 
+// const mapStateToProps = state => ({
+//   ...state
+// })
+
+// const mapDispatchToProps = dispatch => bindActionCreators({
+//   calculateWinner
+// }, dispatch)
+
 module.exports = Board;
+// export default connect(mapStateToProps,mapDispatchToProps)(Board);
