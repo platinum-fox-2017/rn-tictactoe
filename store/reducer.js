@@ -11,6 +11,13 @@ const reducer = (state = initialize, action) => {
       }
     }
 
+    case 'SELECT_BOARD': {
+      return {
+        ...state,
+          data: action.payload
+      }
+    }
+
     default:
       return state;
   }

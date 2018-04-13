@@ -23,7 +23,7 @@ const RootStack = StackNavigator (
     }
   },
   {
-    initialRouteName: 'Game'
+    initialRouteName: 'Home'
   }
 )
 
