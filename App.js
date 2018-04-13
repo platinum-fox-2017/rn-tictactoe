@@ -2,12 +2,16 @@ import React from 'react';
 import Welcome from './src/component/welcome'
 import Main from './src/component/main'
 import Over from './src/component/over'
+import {Provider} from 'react-redux'
 import { StyleSheet, Text, View } from 'react-native';
 import {StackNavigator} from 'react-navigation'
 
 const Navigator = StackNavigator({
   Welcome:{
-    screen:Welcome
+    screen:Welcome,
+    navigationOptions: {
+      headerTitle: 'Welcome',
+    }
   },
   Main:{
     screen:Main,

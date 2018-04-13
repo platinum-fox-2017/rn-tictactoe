@@ -1,12 +1,42 @@
 import React, { Component } from 'react';
-import {View, Text} from 'react-native'
+import {StyleSheet, View, Text, TextInput, Button} from 'react-native'
 
 export default class Welcome extends Component {
+  constructor() {
+    super()
+    this.state = {
+      player: ''
+    }
+  }
   render() {
     return (
-      <View>
-        <Text>Welcome</Text>
+      <View style={styles.container}>
+        <Text>Write your name</Text>
+        <TextInput
+        style={{height: 40, width:200, borderColor: 'gray'}}
+        onChangeText={(player) => this.setState({player})}
+        value={this.state.player}
+      />
+      <Button
+        title="main"
+        onPress={() => {
+          this.props.navigation.navigate('Main', {
+            player: this.state.player
+          });
+        }}
+        >
+        <Text style={{color:'#888'}}>... more</Text>
+      </Button>
       </View>
     )
   }
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
