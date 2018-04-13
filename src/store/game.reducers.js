@@ -1,7 +1,7 @@
 import * as actionTypes from './game.actionTypes';
 
 const intialState = {
-  username: 'abc',
+  username: '',
 }
 
 export const game = (state = {...intialState}, action) => {

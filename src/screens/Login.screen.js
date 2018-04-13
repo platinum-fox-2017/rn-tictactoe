@@ -2,14 +2,9 @@ import React, { Component } from 'react'
 import { StyleSheet, Text, View, TextInput, Button } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { setUsername } from '../store/game.actions'
 
-const MapStateToProps = (state) => {
-  return {
-    username: state.game
-  }
-}
-
-// const MapDispatchToProps = (dispatch) => bindActionCreators({...actionPassword, ...actionAuth, ...actionModal}, dispatch)
+const MapDispatchToProps = (dispatch) => bindActionCreators({ setUsername }, dispatch)
 
 class Login extends Component {
   static navigationOptions = { title: 'Login' }
@@ -24,9 +19,8 @@ class Login extends Component {
   }
 
   onPress = () => {
-
-    console.log(this.props)
-    // this.props.navigation.navigate('Game')
+    // this.props.setUsername(this.state.username)    
+    this.props.navigation.navigate('Game', { username: this.state.username })
   }
 
   onChangeText = (value) => {
@@ -69,4 +63,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(MapStateToProps, null)(Login)
+export default connect(null, MapDispatchToProps)(Login)
