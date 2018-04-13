@@ -50,7 +50,11 @@ class Main extends React.Component {
                     {translateY: 100}
                   ]
                 }]}>
-                <IconO />
+                {
+                  (this.props.main.isO) ?
+                  <IconO /> :
+                  <Text></Text>
+                }
                 </View>
               </View>
 
@@ -102,6 +106,10 @@ const styles = StyleSheet.create({
     ]
   }
 });
+
+const mapStateToProps = (state) => ({
+  main: state.main
+})
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   loadList
