@@ -1,24 +1,17 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
+import BoardComponent from '../components/Board_component'
 
 export default class Board_screen extends Component {
-    constructor() {
-        super()
-        this.state = {
-            activePlayer: [],
-            players: ['A', 'B'],
-            boardData = []
-        }
-    }
     static navigationOptions = {
         title: 'Tic Tac Toe Games',
     };
 
   render() {
     return (
-      <View>
-        <Text> textInComponent </Text>
-      </View>
+        < BoardComponent />
     );
   }
 }
+
+
