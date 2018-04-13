@@ -1,23 +1,39 @@
+// Basic React
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+
+// Navigator and Prodvider
+import { StackNavigator } from 'react-navigation'
+import { Provider } from 'react-redux'
+
+// Store
+import store from './store/index.js'
+
+// Screens
+import Home from './src/screens/Home.js'
+import Game from './src/screens/Game.js'
+
+const RootStack = StackNavigator (
+  {
+    Home: {
+      screen: Home
+    },
+    Game: {
+      screen: Game
+    }
+  },
+  {
+    initialRouteName: 'Game'
+  }
+)
+
 
 export default class App extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
-      </View>
-    );
+      <Provider store={store}>
+        <RootStack />
+      </Provider>);
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
