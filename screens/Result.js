@@ -5,7 +5,7 @@ import WhiteText from '../components/WhiteText';
 import { startNewGame } from '../store/game/game.actions'
 
 export default class Result extends React.Component {
-  static navigationOptions = { title: 'Dashboard' };
+  static navigationOptions = { title: 'Relut' };
 
   playGame = () => {
     startNewGame()

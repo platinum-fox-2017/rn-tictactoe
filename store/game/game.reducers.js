@@ -1,13 +1,16 @@
 import {
   START_GAME,
   SET_TOKEN,
-  CHANGE_TURN
+  CHANGE_TURN,
+  GAME_END
 } from './game.actionTypes';
 
 const initalState = {
   board: ['','','','','','','','',''],
   playerTurn: 'O',
-  turn: 0
+  turn: 0,
+  gameEnded: false,
+  winner: null
 };
 
 const reducers = (state = { ...initalState }, action) => {
@@ -21,6 +24,10 @@ const reducers = (state = { ...initalState }, action) => {
       ...state,
       playerTurn: action.payload,
       turn: state.turn + 1
+    }
+    case GAME_END: return {
+      ...state,
+      gameEnded: true
     }
     default: return state
   }
