@@ -6,12 +6,12 @@ import store from './store';
 
 import Dashboard from './screens/Dashboard';
 import Game from './screens/Game';
-// import Result from './screens/Result';
+import Result from './screens/Result';
 
 const AppNavigator = StackNavigator({
   Dashboard: { screen: Dashboard },
   Game: { screen: Game },
-  // Result: { screen: Result },
+  Result: { screen: Result },
 },{
   initialRouteName: 'Dashboard',
   navigationOptions: {

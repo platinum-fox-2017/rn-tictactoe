@@ -3,9 +3,7 @@ import { StyleSheet, Text, View, TouchableHighlight } from 'react-native';
 import  { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Tiles from './Tiles';
-import { putToken } from '../store/game/game.actions'
-
-let arr = ['X','O','X','O','X','O','X','O','X']
+import { putToken } from '../store/game/game.actions';
 
 const mapStateToProps = (state) => {
   return {
@@ -22,9 +20,10 @@ class BoardGame extends React.Component {
   press = (token, index) => {
     let payload = {
       token: token,
-      index: index
+      index: index,
+      board: this.props.board
     }
-    this.props.putToken(token)
+    this.props.putToken(payload)
   }
 
   render() {

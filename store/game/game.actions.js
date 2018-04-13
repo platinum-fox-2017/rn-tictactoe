@@ -1,17 +1,36 @@
 import {
   START_GAME,
-  CHANGE_TURN
+  SET_TOKEN,
+  CHANGE_TURN,
+  GAME_END
 } from './game.actionTypes';
 
 export const startNewGame = () => {
-
+  return { type: START_GAME }
 }
 
 export const putToken = (payload) => {
-  // return dispatch => {
-  //   dispatch(changeTurn(payload.token))
-  // }
-  changeTurn(payload.token)
+  return dispatch => {
+    payload.board[payload.index] = payload.token
+    dispatch(setToken(payload.board))
+    dispatch(changeTurn(payload.token))
+    conditionChecker(payload)
+  }
+}
+
+const conditionChecker = (payload) => {
+  if(payload.board.indexOf("") !== -1) {
+    console.log('lanjut')
+  } else {
+    console.log('habis')
+  }
+}
+
+const setToken = (payload) => {
+  return {
+    type: SET_TOKEN,
+    payload: payload
+  }
 }
 
 const changeTurn = (payload) => {
@@ -21,12 +40,4 @@ const changeTurn = (payload) => {
     type: CHANGE_TURN,
     payload: payload
   }
-}
-
-const fetchingAmiibosLoading = () => {
-  return { type: FETCH_AMIIBOS_LOADING }
-}
-
-const fetchingAmiibosError = () => {
-  return { type: FETCH_AMIIBOS_ERROR }
 }
