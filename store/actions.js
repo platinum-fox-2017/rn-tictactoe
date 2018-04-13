@@ -1,11 +1,18 @@
 import {
-    SET_PLAYER
+    SET_PLAYER,
+    TURN
 } from './actionTypes'
 
 export const setPlayer = (payload) => {
-    console.log(payload)
     return {
         type: SET_PLAYER,
+        payload
+    }
+}
+
+export const turn = (payload) => {
+    return {
+        type: TURN,
         payload
     }
 }
