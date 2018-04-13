@@ -1,7 +1,8 @@
 import {
   GET_CARD_OK, GET_CARD_LOAD, GET_CARD_ERR,
   GET_XKCD_OK, GET_XKCD_LOAD, GET_XKCD_ERR,
-  NAME_SUBMIT, BOARD_PRESS
+  NAME_SUBMIT, BOARD_PRESS, BOARD_PRESS_LOAD,
+  TURN_CHANGE
 } from './actionTypes.js'
 import axios from 'axios'
 
@@ -13,6 +14,13 @@ export function actName (name) {
 export function actBoardPress (payload) {
   return {type: BOARD_PRESS, payload: payload}
 }
+export function actBoardPressLoad (payload) {
+  return {type: BOARD_PRESS_LOAD, payload: payload}
+}
+export function actTurn (payload) {
+  return {type: TURN_CHANGE, payload: payload}
+}
+
 
 export function actCards (card) {
   return {type: GET_CARD_OK, payload: card}
@@ -38,6 +46,31 @@ export function actComicErr (err) {
 export function submitName (name) {
   return (dispatch) => {
     dispatch(actName(name))
+  }
+}
+export function boardPress (row, col, val) {
+  return (dispatch, getState) => {
+    dispatch(actBoardPressLoad(true))
+    let boardState = getState().boardState
+    let board = getState().board
+    boardState[row][col].val = val
+    let data = {
+      boardState,
+      board
+    }
+    dispatch(actBoardPress(data))
+    dispatch(actBoardPressLoad(false))
+  }
+}
+export function turnChange () {
+  return (dispatch, getState) => {
+    let turn = getState().turn
+    if (turn === 'player') {
+      dispatch(actTurn('opponent'))
+    } else {
+      dispatch(actTurn('player'))
+    }
+
   }
 }
 

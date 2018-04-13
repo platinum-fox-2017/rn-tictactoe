@@ -1,19 +1,22 @@
 import {
   GET_CARD_OK, GET_CARD_LOAD, GET_CARD_ERR,
   GET_XKCD_OK, GET_XKCD_LOAD, GET_XKCD_ERR,
-  NAME_SUBMIT, BOARD_PRESS
+  NAME_SUBMIT, BOARD_PRESS, BOARD_PRESS_LOAD,
+  TURN_CHANGE
 } from './actionTypes.js'
 // REDUCERS
 export default function reducer (state={
   isLoading: false,
   err: '',
+  isChange: false,
+  turn: 'player',
   board: [
     [1,2,3],
     [4,5,6],
     [7,8,9]
   ],
   boardState: [
-    [{val:''},{val:''},{val:''}],
+    [{val:'1'},{val:''},{val:''}],
     [{val:''},{val:''},{val:''}],
     [{val:''},{val:''},{val:''}]
   ],
@@ -30,7 +33,20 @@ export default function reducer (state={
     case BOARD_PRESS: {
       return {
         ...state,
-        boardState: action.payload
+        boardState: action.payload.boardState,
+        board: action.payload.board
+      }
+    }
+    case BOARD_PRESS_LOAD: {
+      return {
+        ...state,
+        isChange: action.payload
+      }
+    }
+    case TURN_CHANGE: {
+      return {
+        ...state,
+        turn: action.payload
       }
     }
     case GET_CARD_OK: {
