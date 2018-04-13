@@ -1,5 +1,14 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableHighlight  } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  Button,
+  TouchableHighlight,
+  Alert
+} from 'react-native';
+import Blocks from './Blocks'
 
 class GameBoard extends Component {
   constructor(props) {
@@ -8,43 +17,17 @@ class GameBoard extends Component {
       x_score: 0, 
       o_score: 0 
     }
-
-  }
-
-  generateRows() {
-    return this.rows.map((row, index) => {
-      return (
-        <View style={styles.row} key={index}>
-          {this.generateBlocks(row, index)}
-        </View>
-      );
-    });
-  }
-
-  generateBlocks(row, row_index) {
-    return row.map((block, index) => {
-      let id = this.ids[row_index][index];
-      return (
-        <TouchableHighlight 
-          key={index} 
-          onPress={this.onMakeMove.bind(this, row_index, index)} 
-          underlayColor={"#CCC"} 
-          style={styles.block}>
-            <Text style={styles.block_text}>
-            {this.state.moves[id]}
-            </Text>
-        </TouchableHighlight>        
-      );
-    });
   }
 
   render() {
     return (
       <View style={styles.board_container}>
         <View style={styles.board}>
-        {this.generateRows()}
+          <Blocks />
+          <Blocks />
+          <Blocks />
         </View>
-
+        
         <View style={styles.scores_container}>
           <View style={styles.score}>
             <Text style={styles.user_score}>{this.state.x_score}</Text>
@@ -64,14 +47,16 @@ class GameBoard extends Component {
 
 const styles = StyleSheet.create({
   board_container: {
-    flex: 9
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   board: {
-    flex: 7,
+    // flex: 3,
     flexDirection: 'column'
   },
   row: {
-    flex: 1,
+    flex: 3,
     flexDirection: 'row',
     borderBottomWidth: 1,
   },
