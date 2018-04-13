@@ -9,9 +9,22 @@ export const setActivePlayer = (payload) => {
   }
 }
 
+export const setPlayer = (payload) => {
+  return (dispatch) => {
+    dispatch(setActivePlayerSuccess(payload))
+  }
+}
+
 const setActivePlayerSuccess = (payload) => {
   return {
     type: SET_ACTIVE_PLAYER,
+    payload: payload
+  }
+}
+
+const setPlayerSuccess = (payload) => {
+  return {
+    type: SET_PLAYER,
     payload: payload
   }
 }

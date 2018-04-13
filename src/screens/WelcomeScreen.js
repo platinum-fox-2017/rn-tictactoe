@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import React, { Component } from 'react';
 import { 
   View, 
   Button,   
-  ActivityIndicator
+  StyleSheet
 } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 
@@ -23,7 +22,7 @@ class WelcomeScreen extends Component {
     return (
       <View style={ style.container }>
         <Button
-          title={item.caption}
+          title={`Start Game`}
           color="#ff6600"
           onPress={ () => {
             this.props.navigation.navigate('SelectPlayer', {})
