@@ -1,1 +1,2 @@
 export const PRINT_BOARD = 'PRINT_BOARD'
+export const PRINT_LETTER = 'PRINT_LETTER'

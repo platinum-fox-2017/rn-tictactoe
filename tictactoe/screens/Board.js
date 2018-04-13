@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native'
 
+import BoardComponent from '../components/BoardComponent'
+
 class Board extends Component {
   render() {
     return (
@@ -8,6 +10,7 @@ class Board extends Component {
         <Text>
           This is board game
         </Text>
+        <BoardComponent />
       </View>
     )
   }
