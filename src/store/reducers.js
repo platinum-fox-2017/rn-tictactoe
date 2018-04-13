@@ -1,5 +1,5 @@
 const initialState = {
-  input: ['','','','','','','','','','']
+  symbol: ''
 }
 
 const inputReducer = (state = initialState, action) => {
@@ -7,7 +7,7 @@ const inputReducer = (state = initialState, action) => {
     case 'FETCH_DATA': {
       return {
         ...state,
-        data: action.payload
+        symbol: action.payload
       }
     }
     default:

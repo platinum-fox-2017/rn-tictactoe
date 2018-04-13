@@ -1,23 +1,42 @@
 import React, { Component } from 'react';
 import {  View, Text, StyleSheet} from 'react-native';
-import Box from '../components/Box'
+import Box from '../components/Box';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { inputSymbol } from '../store/actions';
 
-export default class GameBoard extends Component {
+class GameBoard extends Component {
 
   static navigationOptions = {
     title: "Game On!"
   }
 
   state = {
+    symbol: '  ',
+    initialboard: ['','','','','','','','',''],
     statusPlayer1: true,
-    statusPlayer2: false
+    statusPlayer2: false,
+    symbolXstatus: true,
+    symbolOstatus: false,
   }
 
   setSymbol = () => {
-    this.setState({
-      statusPlayer1: false,
-      statusPlayer2: true
-    })
+    // console.log(this.state.symbol, 'symbol')
+    if ( this.state.symbolXstatus == true) {
+      this.setState({
+        symbol: 'X',
+        statusPlayer1: false,
+        statusPlayer2: true,
+        symbolXstatus: false
+      })
+    } else {
+      this.setState({
+        symbol: 'O',
+        statusPlayer1: false,
+        statusPlayer2: true,
+        symbolXstatus: true
+      })
+    }
   }
 
   render() {
@@ -26,55 +45,21 @@ export default class GameBoard extends Component {
       <View>
         <Text> { this.props.navigation.state.params.player1 } </Text>
         <Text> { this.props.navigation.state.params.player2 } </Text>
-        <View style={ styles.container } >
-          <View style={ styles.board } />
-          <View style={ styles.line } />
-          <View style={ [styles.line, {
-            transform: [
-              {translateX: 200}
-            ]
-          }]}
-          />
-          <View style={ [styles.line, {
-            height: 3,
-            width: 304,
-            transform: [
-              {translateY: 200}
-            ]
-          }]}
-          />
-          <View style={ [styles.line, {
-            height: 3,
-            width: 304,
-            transform: [
-              {translateY: 100}
-            ]
-          }]}
-          />
-        </View>
+        <Box />
       </View>
     );
   }
 }
 
-styles = StyleSheet.create({
-  container: {
-    justifyContent: 'center',
-    marginTop: 20
-  },
-  board: {
-    borderWidth: 3,
-    height: 304,
-    width: 304
-  },
-  line: {
-    backgroundColor: '#000',
-    height: 304,
-    width: 3,
-    position: 'absolute',
-    transform: [
-      {translateX: 100}
-    ]
+const mapStateToProps = ((state) => {
+  return {
+    symbol: state.symbol
   }
 })
 
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+  inputSymbol
+}, dispatch)
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(GameBoard);

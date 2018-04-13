@@ -4,36 +4,61 @@ import {  View, Text, StyleSheet, TouchableHighlight } from 'react-native';
 export default class Box extends Component {
 
   state = {
-    symbol: ''
+    symbol: '  ',
+    initialboard: ['','','','','','','','',''],
+    statusPlayer1: true,
+    statusPlayer2: false,
+    symbolXstatus: true,
+    symbolOstatus: false,
   }
 
-  input = () => {
-    this.setState({
-      symbol: 'X'
-    })
+  setSymbol = () => {
+    // console.log(this.state.symbol, 'symbol')
+    if ( this.state.symbolXstatus == true) {
+      this.setState({
+        symbol: 'X',
+        statusPlayer1: false,
+        statusPlayer2: true,
+        symbolXstatus: false
+      })
+    } else {
+      this.setState({
+        symbol: 'O',
+        statusPlayer1: false,
+        statusPlayer2: true,
+        symbolXstatus: true
+      })
+    }
+  }
+
+  componentDidMount () {
+    // this.createBoard()
   }
 
   render() {
     return (
-      <View style={ styles.board }>
-        <TouchableHighlight
-         style={styles.input}
-         onPress={this.input}
-        >
-        <Text style={ styles.input }> { this.state.symbol } </Text>
-        </TouchableHighlight>
-        <TouchableHighlight
-         style={styles.input}
-         onPress={this.input}
-        >
-        <Text style={ styles.input }> { this.state.symbol } </Text>
-        </TouchableHighlight>
-        <TouchableHighlight
-         style={styles.input}
-         onPress={this.input}
-        >
-        <Text style={ styles.input }> { this.state.symbol } </Text>
-        </TouchableHighlight>
+      <View>
+        <Text> symbol: { this.state.symbolXstatus } </Text>
+        <View style={ styles.board }>
+          <TouchableHighlight
+          style={styles.input}
+          onPress={this.setSymbol}
+          >
+          <Text style={ styles.input }> { this.state.symbol } </Text>
+          </TouchableHighlight>
+          <TouchableHighlight
+          style={styles.input}
+          onPress={this.setSymbol}
+          >
+          <Text style={ styles.input }> { this.state.symbol } </Text>
+          </TouchableHighlight>
+          <TouchableHighlight
+          style={styles.input}
+          onPress={this.setSymbol}
+          >
+          <Text style={ styles.input }> { this.state.symbol } </Text>
+          </TouchableHighlight>
+        </View>
       </View>
     );
   }
