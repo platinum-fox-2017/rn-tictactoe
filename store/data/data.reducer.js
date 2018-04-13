@@ -1,8 +1,7 @@
 import { USERNAME_UPDATE } from './data.actionType'
 
 const initialState = {
-  username: '',
-  
+  username: '',  
 }
 
 const reducers = (state=initialState, action) => {

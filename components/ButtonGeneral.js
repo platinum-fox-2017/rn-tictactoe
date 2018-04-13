@@ -14,6 +14,7 @@ class ButtonGeneral extends Component {
           title={this.props.text}
           color='white'
           disabled={ this.props.color ? true : false}
+          onPress={this.props.press}
         />
       </View>
     )

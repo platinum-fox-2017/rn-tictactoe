@@ -12,6 +12,10 @@ class Home extends Component {
     this.props.username(e)
   }
 
+  moveToGame = () => {
+    this.props.navigation.navigate('Game')
+  }
+
   render() {
     return (
       <View>
@@ -21,7 +25,7 @@ class Home extends Component {
         </View>
         <View style={{ marginTop: 75 }}>
           { (this.props.data.username) ?
-            <ButtonGeneral text={'Play Now'} /> :
+            <ButtonGeneral text={'Play Now'} press={ this.moveToGame } /> :
             <ButtonGeneral text={'Enter Username'} color={'red'} disabled='true'/> 
           }
         </View>
