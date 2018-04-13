@@ -21,40 +21,67 @@ class GameScreenComponents extends Component {
     this.state = {
       board: [
         '','','','','','','','',''
-      ]
+      ],
+      activePlayer: 1
     }
   }
-  
+
+  onPress = (idx) => {
+    let newBoard = []
+    for(let i = 0; i < this.state.board.length; i++) {
+      newBoard.push(this.state.board[i])
+    }
+
+    let changePlayer = false
+    for(let i = 0; i < newBoard.length; i++) {
+      if(i === idx && newBoard[i] === '') {
+        if (this.state.activePlayer === 1) {
+          newBoard[i] = 'X'
+          changePlayer = true
+        } else {
+          newBoard[i] = 'O'
+          changePlayer = true
+        }
+      }
+    }
+
+    this.setState({
+      ...this.state,
+      board: newBoard,
+    })
+
+    if(this.state.activePlayer === 1 && changePlayer === true) {
+      this.setState({
+        ...this.state,
+        board: newBoard,        
+        activePlayer: 2
+      })
+    } else if (this.state.activePlayer === 2 && changePlayer === true) {
+      this.setState({
+        ...this.state,
+        board: newBoard,
+        activePlayer: 1
+      })
+    }
+  }
+
   render() {
     return (
       <View>
         <Text>
-          { `Player Turn : ${this.props.activePlayer}`}
+          { `Player Turn : ${this.state.activePlayer}`}
         </Text>
         <View style={ styles.container }>
-          { this.state.board.maps(() => {
+          { this.state.board.map((el,idx) => {
             return (
               <TouchableHighlight
                 style={styles.button}
-                onPress={this.onPress}
+                onPress={() => { this.onPress(idx)}}
                 >
-                <Text> X </Text>
+                <Text> { this.state.board[idx] } </Text>
             </TouchableHighlight>
             )
           })}
-
-          {/* <TouchableHighlight
-            style={styles.button}
-            onPress={this.onPress}
-            >
-            <Text> X </Text>
-          </TouchableHighlight>
-          <TouchableHighlight
-            style={styles.button}
-            onPress={this.onPress}
-            >
-            <Text> X </Text>
-          </TouchableHighlight> */}
         </View>
       </View>
     );
