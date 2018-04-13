@@ -5,6 +5,7 @@ import store from './store/index'
 
 import WelcomeScreen from './screens/WelcomeScreen'
 import Board from './screens/Board'
+import WinScreen from './screens/WinScreen'
 
 export default class App extends React.Component {
   render() {
@@ -24,5 +25,9 @@ const RootStack = StackNavigator({
   Board: {
     screen: Board,
     title: 'Board'
+  },
+  WinScreen: {
+    screen: WinScreen,
+    title: 'WinScreen'
   },
 });

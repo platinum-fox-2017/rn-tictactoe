@@ -26,22 +26,70 @@ class Board extends Component {
 
     turn = (row, col) => {
         let board = this.props.store.boardData;
-        board[row][col] = this.state.symbol;
-        if(this.state.playerTurn === this.props.store.playerOne){
-            this.setState({
-                playerTurn: this.props.store.playerTwo,
-                symbol: 'O'
-            })
-        }else{
-            this.setState({
-                playerTurn: this.props.store.playerOne,
-                symbol: 'X'
-            })
+        if(board[row][col] === ''){
+            board[row][col] = this.state.symbol;
+            if(this.state.playerTurn === this.props.store.playerOne){
+                this.setState({
+                    playerTurn: this.props.store.playerTwo,
+                    symbol: 'O'
+                })
+            }else{
+                this.setState({
+                    playerTurn: this.props.store.playerOne,
+                    symbol: 'X'
+                })
+            }
+            this.props.turn(board)
         }
-        this.props.turn(board)
     }
 
     render() {
+        let board = this.props.store.boardData;
+        for (let i=0; i<board.length; i++){
+            for(let j=0; j<board[i].length; j++){
+                if(board[i][j] === 'X'){
+                    if(j % 2 === 0){
+                        if(board[i][j-1] === 'X'){
+                            if(board[i][j+1] === 'X'){
+                                this.props.navigation.navigate('WinScreen', {winner: this.props.store.playerOne})
+                            }
+                        }
+                    }else if(j === 1){
+                        if(board[i][j+1] === 'X'){
+                            if(board[i][j+2] === 'X'){
+                                this.props.navigation.navigate('WinScreen', {winner: this.props.store.playerOne})
+                            }
+                        }
+                    }else if(j === 2){
+                        if(board[i][j-1] === 'X'){
+                            if(board[i][j-2] === 'X'){
+                                this.props.navigation.navigate('WinScreen', {winner: this.props.store.playerOne})
+                            }
+                        }
+                    }
+                }else if(board[i][j] === 'O'){
+                    if(j % 2 === 0){
+                        if(board[i][j-1] === 'O'){
+                            if(board[i][j+1] === 'O'){
+                                this.props.navigation.navigate('WinScreen', {winner: this.props.store.playerOne})
+                            }
+                        }
+                    }else if(j === 1){
+                        if(board[i][j+1] === 'O'){
+                            if(board[i][j+2] === 'O'){
+                                this.props.navigation.navigate('WinScreen', {winner: this.props.store.playerOne})
+                            }
+                        }
+                    }else if(j === 2){
+                        if(board[i][j-1] === 'O'){
+                            if(board[i][j-2] === 'O'){
+                                this.props.navigation.navigate('WinScreen', {winner: this.props.store.playerOne})
+                            }
+                        }
+                    }
+                }
+            }
+        }
         return (
             <View style={styles.container}>
                 <Text style={styles.textVs}>{this.props.store.playerOne} vs {this.props.store.playerTwo}</Text>
