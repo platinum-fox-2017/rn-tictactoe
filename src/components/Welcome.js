@@ -24,7 +24,7 @@ export default class Welcome extends Component {
     let showButton = this.state.showButton;
     let fadeAnim   = 0;
 
-    if(text.length >= 5){
+    if(text.length >= 1){
       showButton = true;
       fadeAnim   = 1;
     }else{
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
   	marginRight: 20,
   	borderWidth: 1,
   	borderColor: "gray",
-  	height: 50,
+    height: 40,
   	zIndex: 2
   }
 });
