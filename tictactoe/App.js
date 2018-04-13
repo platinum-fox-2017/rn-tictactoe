@@ -1,23 +1,28 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import Home from './screens/Home'
+import { Provider } from 'react-redux'
+import { StackNavigator, SwitchNavigator } from 'react-navigation'
+import store from './store/store'
+import Game from './screens/Game'
 
 export default class App extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
-      </View>
-    );
+      <Provider store={store}>
+        <RootStack />
+      </Provider>
+    )
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const RootStack = SwitchNavigator ({
+  Home: {
+    screen: Home
+  }, 
+  Game: {
+    screen: Game
+  }
+}, {
+  initialRouteName: 'Game'
+})
