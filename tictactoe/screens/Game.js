@@ -13,7 +13,94 @@ export default class Game extends Component {
         name: 'Putra',
         answer: 'O'
       }],
-      counter: 0
+      counter: 0,
+      winner: null
+    }
+  }
+
+  _checkPattern = () => {
+    let board = this.state.board
+    let turn = this.state.turn
+    if(board[0]===board[1] && board[1]===board[2] && board[2]==='X'){
+      this.setState({
+        winner: turn[0].name
+      })
+      this.props.navigation.navigate('End')
+    } else if(board[0]===board[1] && board[1]===board[2] && board[2]==='O'){
+      this.setState({
+        winner: turn[1].name
+      })
+      this.props.navigation.navigate('End')
+    } else if(board[3]===board[4] && board[4]===board[5] && board[5]==='O'){
+      this.setState({
+        winner: turn[1].name
+      })
+      this.props.navigation.navigate('End')
+    } else if(board[3]===board[4] && board[4]===board[5] && board[5]==='X'){
+      this.setState({
+        winner: turn[0].name
+      })
+      this.props.navigation.navigate('End')
+    } else if(board[6]===board[7] && board[7]===board[8] && board[8]==='X'){
+      this.setState({
+        winner: turn[0].name
+      })
+      this.props.navigation.navigate('End')
+    } else if(board[6]===board[7] && board[7]===board[8] && board[8]==='O'){
+      this.setState({
+        winner: turn[1].name
+      })
+      this.props.navigation.navigate('End')
+    } else if(board[0]===board[3] && board[3]===board[6] && board[6]==='O'){
+      this.setState({
+        winner: turn[1].name
+      })
+      this.props.navigation.navigate('End')
+    } else if(board[0]===board[3] && board[3]===board[6] && board[6]==='X'){
+      this.setState({
+        winner: turn[0].name
+      })
+      this.props.navigation.navigate('End')
+    } else if(board[1]===board[4] && board[4]===board[7] && board[7]==='X'){
+      this.setState({
+        winner: turn[0].name
+      })
+      this.props.navigation.navigate('End')
+    } else if(board[1]===board[4] && board[4]===board[7] && board[7]==='O'){
+      this.setState({
+        winner: turn[1].name
+      })
+      this.props.navigation.navigate('End')
+    } else if(board[2]===board[5] && board[8]===board[5] && board[8]==='O'){
+      this.setState({
+        winner: turn[1].name
+      })
+      this.props.navigation.navigate('End')
+    } else if(board[2]===board[5] && board[8]===board[5] && board[8]==='X'){
+      this.setState({
+        winner: turn[0].name
+      })
+      this.props.navigation.navigate('End')
+    } else if(board[0]===board[4] && board[8]===board[4] && board[8]==='X'){
+      this.setState({
+        winner: turn[0].name
+      })
+      this.props.navigation.navigate('End')
+    } else if(board[0]===board[4] && board[8]===board[4] && board[8]==='O'){
+      this.setState({
+        winner: turn[1].name
+      })
+      this.props.navigation.navigate('End')
+    } else if(board[2]===board[4] && board[6]===board[4] && board[6]==='O'){
+      this.setState({
+        winner: turn[1].name
+      })
+      this.props.navigation.navigate('End')
+    } else if(board[2]===board[4] && board[6]===board[4] && board[6]==='X'){
+      this.setState({
+        winner: turn[0].name
+      })
+      this.props.navigation.navigate('End')
     }
   }
 
@@ -24,10 +111,10 @@ export default class Game extends Component {
     this.setState({
       board
     })
-
     this.setState({
       counter: this.state.counter+1
     })
+    this._checkPattern()
   }
 
   render() {
@@ -35,6 +122,7 @@ export default class Game extends Component {
       <View style={styles.container}>
         <Text style={styles.title}>Tic Tac Toe</Text>
         <Text style={styles.info}>Turn: {this.state.turn[this.state.counter%2].name}</Text>
+        <Text style={styles.info}>Winner: {this.state.winner}</Text>
         <View style={styles.board}>
           {
             this.state.board.map((val, index) => (
@@ -48,6 +136,8 @@ export default class Game extends Component {
     )
   }
 }
+
+
 
 const styles = new StyleSheet.create({
   container: {

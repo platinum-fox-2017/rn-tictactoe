@@ -11,17 +11,17 @@ export default class Home extends Component {
 
   _goToGame = () => {
     console.log('tes')
-    this.props.navigation.navigate('Login')
+    this.props.navigation.navigate('Game')
   }
 
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.title}> Tic Tac Toe </Text>
-        <Text style={styles.title2}> Welcome! </Text>
+        <Text style={styles.info}>LSLSLSLS Win!</Text>
         <View style={styles.button}>
         <Button onPress={this._goToGame} 
-          title="New Game"
+          title="Play Again"
           color="white"/>
           </View>
       </View>
@@ -37,19 +37,18 @@ const styles = new StyleSheet.create({
     fontSize: 30,
     fontWeight: 'bold'
   },
-  title2: {
-    marginTop: 40,
-    fontSize: 20,
-    textAlign: 'center',
-    fontSize: 20,
-    fontWeight: 'bold'
-  },
   button: {
     marginHorizontal: '20%',
     backgroundColor: 'green',
     borderRadius: 10,
-    marginTop: 10,
-    marginTop: 150
+    marginTop: 10
+  },
+  info: {
+    marginTop: 30,
+    fontSize: 20,
+    textAlign: 'center',
+    fontSize: 20,
+    fontWeight: 'bold'
   },
   container: {
    flex: 1,
@@ -59,5 +58,12 @@ const styles = new StyleSheet.create({
     color: 'white',
     fontSize: 20,
     fontWeight: 'bold'
+  },
+  input: {
+    height: 40, 
+    backgroundColor: 'white',
+    marginHorizontal: '20%',
+    marginTop: 150,
+    padding: 10
   }
 })
