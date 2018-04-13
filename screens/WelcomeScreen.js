@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { setPlayer } from '../store/actions';
 
 class WelcomeScreen extends Component {
     constructor(props) {
@@ -12,13 +15,21 @@ class WelcomeScreen extends Component {
 
     static navigationOptions = {
         title: 'Tic Tac Toe'
-      }
+    }
+
+    setPlayerLocal = () => {
+        this.props.setPlayer({
+            playerOne: this.state.playerOne,
+            playerTwo: this.state.playerTwo
+        })
+        this.props.navigation.navigate('Board')
+    }
 
     render() {
         return (
             <View style={styles.container}>
                 <View style={styles.textInputContainer}>
-                    <TextInput 
+                    <TextInput
                         style={styles.textInput}
                         placeholder="Player One"
                         onChangeText={(playerOne) => this.setState({ playerOne })}
@@ -26,7 +37,7 @@ class WelcomeScreen extends Component {
                     />
                 </View>
                 <View style={styles.textInputContainer}>
-                    <TextInput 
+                    <TextInput
                         style={styles.textInput}
                         placeholder="Player One"
                         onChangeText={(playerTwo) => this.setState({ playerTwo })}
@@ -35,7 +46,7 @@ class WelcomeScreen extends Component {
                 </View>
                 <TouchableOpacity
                     style={styles.btnStart}
-                    onPress={() => console.log(`${this.state.playerOne} vs ${this.state.playerTwo}`)}>
+                    onPress={this.setPlayerLocal}>
                     <Text style={styles.btnText}>Start</Text>
                 </TouchableOpacity>
             </View>
@@ -75,4 +86,14 @@ const styles = StyleSheet.create({
     }
 });
 
-export default WelcomeScreen;
+const mapStateToProps = state => {
+    return {
+        store: state.reducers
+    }
+}
+
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+    setPlayer
+}, dispatch)
+
+export default connect(mapStateToProps, mapDispatchToProps)(WelcomeScreen);
