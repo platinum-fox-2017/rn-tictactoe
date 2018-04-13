@@ -1,23 +1,45 @@
 import React from 'react';
+import Welcome from './src/component/welcome'
+import Main from './src/component/main'
+import Over from './src/component/over'
 import { StyleSheet, Text, View } from 'react-native';
+import {StackNavigator} from 'react-navigation'
+
+const Navigator = StackNavigator({
+  Welcome:{
+    screen:Welcome
+  },
+  Main:{
+    screen:Main,
+    navigationOptions: {
+      headerTitle: 'Tic Tac To',
+    }
+  },
+  Over:{
+    screen: Over,
+    navigationOptions:{
+      headerTitle: 'Over'
+    }
+  }
+},{
+  initialRouteName: 'Welcome',
+  navigationOptions: {
+    headerStyle: {
+      backgroundColor: '#f4511e',
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+    },
+  },
+})
 
 export default class App extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
-      </View>
+        <Navigator/>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
