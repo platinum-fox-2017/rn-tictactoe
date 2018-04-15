@@ -3,6 +3,12 @@ import { StyleSheet, Text, View, Button } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
+import Status from '../components/Status'
+import SmallButton from '../components/SmallButton'
+import Board from '../components/Board'
+
+import { updateBoard } from '../store/game.actions'
+
 const MapStateToProps = (state) => {
   return {
     playerOne: state.game.playerOne,
@@ -12,24 +18,27 @@ const MapStateToProps = (state) => {
   }
 }
 
+const MapDispatchToProps = (dispatch) => bindActionCreators({ updateBoard }, dispatch)
+
 class Game extends Component {
   static navigationOptions = { title: 'TicTacToe' }
 
   constructor(props) {
     super(props)
     this.state = {
-      board : ['-1','-1','-1','-1','-1','-1','-1','-1','-1'],
       status: false,
     }
   }
 
   onPress = (index) => {
-    let newBoard = this.state.board;
-    if (newBoard[index] == '-1') {
+    let newBoard = this.props.board;
+    if (newBoard[index] === '-1') {
       if (this.state.status) newBoard[index] = '1';
       else newBoard[index] = '0';
+      
+      this.props.updateBoard(newBoard)
 
-      this.setState({ board: newBoard, status: !this.state.status }, () => {
+      this.setState({ status: !this.state.status }, () => {
         if(
           this.checkWinner(0,1,2) ||
           this.checkWinner(3,4,5) ||
@@ -45,10 +54,11 @@ class Game extends Component {
   }
 
   checkWinner = (p1, p2, p3) => {
-    let board = this.state.board;
+    let board = this.props.board;
     if (board[p1] == '-1' || board[p2] == '-1' || board[p2] == '-1') return false;
     else {
       if (board[p1] == board[p2] && board[p2] == board[p3] && board[p1] == board[p3]) {
+        this.props.updateBoard(['-1','-1','-1','-1','-1','-1','-1','-1','-1'])
         if (board[p1] == '0') this.props.navigation.navigate('End', { winner: this.props.playerOne })
         if (board[p1] == '1') this.props.navigation.navigate('End', { winner: this.props.playerTwo })
         return true;
@@ -60,26 +70,18 @@ class Game extends Component {
 
   render() {
     let board = [];
-    for(let i = 0; i < this.state.board.length; i++) {
+    for(let i = 0; i < this.props.board.length; i++) {
       let title = '';
-      if (this.state.board[i] == '1') title = 'O';
-      if (this.state.board[i] == '0') title = 'X';
-      if (this.state.board[i] == '-1') title = ' ';
-      board.push(
-        <View key={'key' + i} style={styles.key}>
-          <Button title={ title } onPress={() => this.onPress(i)}/>
-        </View>
-      )
+      if (this.props.board[i] == '1') title = 'O';
+      if (this.props.board[i] == '0') title = 'X';
+      if (this.props.board[i] == '-1') title = ' ';
+      board.push(<SmallButton key={ 'key' + i } title={ title } onPress={ this.onPress } index={ i } />)
     }
     return (
       <View style={styles.container}>
-        <View style={styles.status}>
-          <Text> Player One: {this.props.playerOne} : X </Text>
-          <Text> Player Two: {this.props.playerTwo} : O </Text>
-          <View style={styles.keyboard}>
-            { board }
-          </View>
-        </View>
+        <Status turn={ !this.state.status } status={ 'Player One: ' + this.props.playerOne + ' : X' } />
+        <Status turn={ this.state.status } status={ 'Player Two: ' + this.props.playerTwo + ' : O' } />
+        <Board item={ board } />
       </View>
     )
   }
@@ -90,25 +92,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     justifyContent: 'center',
-  },
-  status: {
-    alignItems: 'center',
-  },
-  keyboard: {
-    flexWrap: 'wrap',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginHorizontal: 104,
-    borderRadius: 4,
-    borderWidth: 1,
-    borderColor: '#d6d7da',
-  },
-  key: {
-    marginVertical: 4,
-    marginHorizontal: 8,
-    width: 40,
   }
 });
 
-export default connect(MapStateToProps, null)(Game)
+export default connect(MapStateToProps, MapDispatchToProps)(Game)

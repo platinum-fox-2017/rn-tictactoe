@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, View, Button } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
+
+import InputButton from '../components/InputButton'
+import Status from '../components/Status'
 
 export default class End extends Component {
   static navigationOptions = { title: 'Game Over' }
@@ -16,20 +19,15 @@ export default class End extends Component {
   }
 
   onPress = () => {
-    // this.props.navigation.navigate.goBack().goBack();
-    this.props.navigation.navigate('Login');
+    this.props.navigation.goBack();
   }
 
   render() {
     return (
       <View style={styles.container}>
-      <View style={styles.status}>
-        <Text> Winner is { this.state.winner } </Text>
-        <View style={styles.button}>
-          <Button title='New Game' onPress={this.onPress}/>
-        </View>
+        <Status status={ 'Winner is ' + this.state.winner } />
+        <InputButton title='Play Again' onPress={ this.onPress } />
       </View>
-    </View>
     )
   }
 }
@@ -40,17 +38,4 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     justifyContent: 'center'
   },
-  status: {
-    alignItems: 'center',
-  },
-  username: {
-    marginVertical: 16,
-    marginHorizontal: 24,
-    textAlign: 'center',
-    paddingBottom: 16,
-  },
-  button: {
-    marginVertical: 36,
-    marginHorizontal: 80,
-  }
 });

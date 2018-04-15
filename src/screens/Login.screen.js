@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, View, TextInput, Button } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { setUsername } from '../store/game.actions'
+import InputText from '../components/InputText'
+import InputButton from '../components/InputButton'
 
 const MapDispatchToProps = (dispatch) => bindActionCreators({ setUsername }, dispatch)
 
@@ -36,23 +38,19 @@ class Login extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <TextInput
-            style={styles.username}
-            name='playerOne'
-            placeholder='insert player one'
-            onChangeText={this.onChangeTextPlayerOne}
-            value={this.state.playerOne}
-          />
-        <TextInput
-            style={styles.username}
-            name='playerTwo'
-            placeholder='insert player two'
-            onChangeText={this.onChangeTextPlayerTwo}
-            value={this.state.playerTwo}
-          />
-        <View style={styles.button}>
-          <Button title='New Game' onPress={this.onPress} disabled={ this.state.username === '' }/>
-        </View>
+        <InputText
+          name='playerOne'
+          placeholder='insert player one'
+          onChangeText={ this.onChangeTextPlayerOne }
+          value={ this.state.playerOne }
+        />
+        <InputText
+          name='playerTwo'
+          placeholder='insert player two'
+          onChangeText={ this.onChangeTextPlayerTwo }
+          value={ this.state.playerTwo }
+        />
+        <InputButton title='New Game' onPress={ this.onPress } disabled={ this.state.playerOne === '' && this.state.playerTwo === '' } />
       </View>
     )
   }
@@ -63,16 +61,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     justifyContent: 'center'
-  },
-  username: {
-    marginVertical: 16,
-    marginHorizontal: 24,
-    textAlign: 'center',
-    paddingBottom: 16,
-  },
-  button: {
-    marginVertical: 36,
-    marginHorizontal: 80,
   }
 });
 
