@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux'
 import {  View, Text, StyleSheet, TextInput, TouchableHighlight } from 'react-native';
+import Home from '../component/home'
 
 class Start extends Component {
   constructor(){
     super()
     this.state = {
-      playerOne: 'player 1',
-      playerTwo: 'player 2'
+
     }
   }
   
@@ -17,21 +18,10 @@ class Start extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View>
-          <TextInput
-          style={{borderColor: 'black', borderWidth: 1, height: 30, width: 100, marginBottom: 5}}
-          onChangeText={(name) => this.setState({playerOne:name})}
-          value={this.state.playerOne}
-          />
-          <TextInput
-          style={{borderColor: 'black', borderWidth: 1, height: 30, width: 100}}
-          onChangeText={(name) => this.setState({playerTwo:name})}
-          value={this.state.playerTwo}
-          />
-        </View>
+        <Home/>
         <View style={styles.button}>
           <TouchableHighlight
-            onPress={() => this.props.navigation.navigate('Game', {name:this.state})}>
+            onPress={() => this.props.navigation.navigate('Game')}>
             <Text style={{color: 'white'}}>Game Start</Text>
           </TouchableHighlight>
         </View>
@@ -39,7 +29,6 @@ class Start extends Component {
     );
   }
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -57,5 +46,5 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   }
 });
- 
-export default Start ;
+
+export default Start;

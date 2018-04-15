@@ -3,6 +3,8 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Provider } from 'react-redux'
 import { StackNavigator } from 'react-navigation'
 
+import store from './store/store'
+
 import Start from './screen/start'
 import Game from './screen/game'
 import End from './screen/end'
@@ -30,7 +32,7 @@ const RootStack = StackNavigator({
 export default class App extends React.Component {
   render() {
     return (
-      <Provider>
+      <Provider store={store}>
         <RootStack/>
       </Provider>  
     );
