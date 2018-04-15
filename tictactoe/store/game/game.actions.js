@@ -17,6 +17,7 @@ export const printBoard = (size) => {
 export const printLetter = (board, index, letter) => {
   return dispatch => {
     board[index] = letter
+    console.log(board)
     dispatch({
       type: PRINT_LETTER,
       payload: board
