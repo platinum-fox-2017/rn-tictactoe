@@ -5,6 +5,7 @@ const intialState = {
   playerTwo: '',
   board : ['-1','-1','-1','-1','-1','-1','-1','-1','-1'],
   status: false,
+  winner: ''
 }
 
 export const game = (state = {...intialState}, action) => {
@@ -13,6 +14,8 @@ export const game = (state = {...intialState}, action) => {
       return { ...state, playerOne: action.value.playerOne, playerTwo: action.value.playerTwo};
     case actionTypes.UPDATE_BOARD:
       return { ...state, board: action.value };
+    case actionTypes.SET_WINNER:
+      return { ...state, winner: action.value };
     default:
       return state;
   }

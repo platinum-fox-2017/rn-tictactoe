@@ -1,31 +1,28 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
+import { connect } from 'react-redux'
 
 import InputButton from '../components/InputButton'
 import Status from '../components/Status'
 
-export default class End extends Component {
+const MapStateToProps = (state) => {
+  return {
+    winner: state.game.winner
+  }
+}
+
+class End extends Component {
   static navigationOptions = { title: 'Game Over' }
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      winner: '',
-    }
-  }
-
-  componentDidMount = () => {
-    this.setState({ winner: this.props.navigation.state.params.winner })
-  }
-
   onPress = () => {
+    /* istanbul ignore next */
     this.props.navigation.goBack();
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <Status status={ 'Winner is ' + this.state.winner } />
+        <Status status={ 'Winner is ' + this.props.winner } />
         <InputButton title='Play Again' onPress={ this.onPress } />
       </View>
     )
@@ -39,3 +36,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
 });
+
+export default connect(MapStateToProps, null)(End)

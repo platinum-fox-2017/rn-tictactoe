@@ -13,3 +13,10 @@ export const updateBoard = (value) => {
     value
   }
 }
+
+export const setWinner = (value) => {
+  return {
+    type: actionTypes.SET_WINNER,
+    value
+  }
+}

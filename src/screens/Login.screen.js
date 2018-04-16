@@ -23,7 +23,9 @@ class Login extends Component {
   }
 
   onPress = () => {
+    /* istanbul ignore next */
     this.props.setUsername(this.state)
+    /* istanbul ignore next */
     this.props.navigation.navigate('Game')
   }
 

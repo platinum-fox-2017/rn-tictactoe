@@ -7,7 +7,7 @@ import Status from '../components/Status'
 import SmallButton from '../components/SmallButton'
 import Board from '../components/Board'
 
-import { updateBoard } from '../store/game.actions'
+import { updateBoard, setWinner } from '../store/game.actions'
 
 const MapStateToProps = (state) => {
   return {
@@ -18,7 +18,7 @@ const MapStateToProps = (state) => {
   }
 }
 
-const MapDispatchToProps = (dispatch) => bindActionCreators({ updateBoard }, dispatch)
+const MapDispatchToProps = (dispatch) => bindActionCreators({ updateBoard, setWinner }, dispatch)
 
 class Game extends Component {
   static navigationOptions = { title: 'TicTacToe' }
@@ -36,6 +36,7 @@ class Game extends Component {
       if (this.state.status) newBoard[index] = '1';
       else newBoard[index] = '0';
       
+      /* istanbul ignore next */
       this.props.updateBoard(newBoard)
 
       this.setState({ status: !this.state.status }, () => {
@@ -58,9 +59,14 @@ class Game extends Component {
     if (board[p1] == '-1' || board[p2] == '-1' || board[p2] == '-1') return false;
     else {
       if (board[p1] == board[p2] && board[p2] == board[p3] && board[p1] == board[p3]) {
+        /* istanbul ignore next */
         this.props.updateBoard(['-1','-1','-1','-1','-1','-1','-1','-1','-1'])
-        if (board[p1] == '0') this.props.navigation.navigate('End', { winner: this.props.playerOne })
-        if (board[p1] == '1') this.props.navigation.navigate('End', { winner: this.props.playerTwo })
+        /* istanbul ignore next */
+        if (board[p1] == '0') this.props.setWinner(this.props.playerOne);
+        /* istanbul ignore next */
+        if (board[p1] == '1') this.props.setWinner(this.props.playerTwo);
+        /* istanbul ignore next */
+        this.props.navigation.navigate('End')
         return true;
       }
     }

@@ -5,7 +5,10 @@ export default class SmallButton extends Component {
   render() {
     return (
       <View style={styles.key}>
-        <Button title={ this.props.title } onPress={() => this.props.onPress(this.props.index) } />
+        <Button title={ this.props.title } onPress={
+          /* istanbul ignore next */
+          () => this.props.onPress(this.props.index)
+        } />
       </View>
     )
   }
